@@ -878,6 +878,15 @@ uint32_t log_filter_get(struct log_backend const *const backend,
 	}
 }
 
+
+char *log_strndup(const char *str, int len)
+{
+	char *new_str = log_strdup(str);
+	if (new_str != log_strdup_fail_msg)
+		new_str[len] = '\0';
+	return new_str;
+}
+
 char *log_strdup(const char *str)
 {
 	struct log_strdup_buf *dup;

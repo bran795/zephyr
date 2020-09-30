@@ -273,10 +273,18 @@ void log_printk(const char *fmt, va_list ap);
  *	   some configurations, the original string pointer is returned.
  */
 char *log_strdup(const char *str);
+char *log_strndup(const char *str, int len);
+
 #else
 static inline void log_printk(const char *fmt, va_list ap)
 {
 	vprintk(fmt, ap);
+}
+
+
+static inline char *log_strndup(const char *str, int n)
+{
+	return (char *)str;
 }
 
 static inline char *log_strdup(const char *str)
