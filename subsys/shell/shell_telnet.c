@@ -222,6 +222,9 @@ static void telnet_accept(struct net_context *client,
 			  int error,
 			  void *user_data)
 {
+	int err;
+	char welcome_msg[] = "330 Plus Telnet Shell\r\nWelcome!";
+
 	if (error) {
 		LOG_ERR("Error %d", error);
 		goto error;
@@ -245,6 +248,14 @@ static void telnet_accept(struct net_context *client,
 
 	sh_telnet->client_ctx = client;
 
+	err = net_context_send(sh_telnet->client_ctx, 
+		welcome_msg, strlen(welcome_msg), telnet_sent_cb,
+			       K_FOREVER, NULL);
+	if (err < 0) {
+		LOG_ERR("Failed to send welcome msg %d, shutting down", err);
+		telnet_end_client_connection();
+	}
+	
 	return;
 error:
 	net_context_put(client);
