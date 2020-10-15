@@ -239,6 +239,12 @@ config SHELL_TELNET_SUPPORT_COMMAND
 	  However, if proven to be needed at some point, it will be possible
 	  to extend such support.
 
+config SHELL_TELNET_WELCOME_MSG
+	string "Displayed welcome message (displayed on connect)"
+	default "Zephyr RTOS Telnet\r\n"
+	help
+	  Displayed welcome message for TELNET backend.
+
 module = SHELL_TELNET
 default-timeout = 100
 source "subsys/shell/Kconfig.template.shell_log_queue_timeout"

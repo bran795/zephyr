@@ -223,7 +223,7 @@ static void telnet_accept(struct net_context *client,
 			  void *user_data)
 {
 	int err;
-	char welcome_msg[] = "330 Plus Telnet Shell\r\nWelcome!";
+	char welcome_msg[] = CONFIG_SHELL_TELNET_WELCOME_MSG;
 
 	if (error) {
 		LOG_ERR("Error %d", error);
